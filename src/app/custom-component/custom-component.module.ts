@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { CustomComponentRoutingModule } from './custom-component-routing.module';
 import { CustomComponentComponent } from './custom-component.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
   imports: [
     CommonModule,
     CustomComponentRoutingModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class CustomComponentModule { }

@@ -1,9 +1,13 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav [mode]="over">
-        <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
+        <button (click)="sidenav.toggle()" mat-icon-button aria-label="Hide">
+            <mat-icon>backspace</mat-icon>
+          </button>
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
+        <button (click)="sidenav.toggle()" mat-icon-button aria-label="Component List">
+            <mat-icon>list</mat-icon>
+        </button>
     </mat-sidenav-content>
 </mat-sidenav-container>
