@@ -1,13 +1,18 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav [mode]="over">
-        <button (click)="sidenav.toggle()" mat-icon-button aria-label="Hide">
+        <button (click)="loadData()" mat-icon-button aria-label="Hide">
             <mat-icon>backspace</mat-icon>
           </button>
+          
     </mat-sidenav>
 
     <mat-sidenav-content>
         <button (click)="sidenav.toggle()" mat-icon-button aria-label="Component List">
             <mat-icon>list</mat-icon>
         </button>
+        hello
+        <div fxFlex="50px" id="page-actions-container">
+            <!-- content will be placed dynamically via Cdk Portal -->
+        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

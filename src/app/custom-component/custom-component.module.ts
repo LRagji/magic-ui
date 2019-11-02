@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { CustomComponentRoutingModule } from './custom-component-routing.module';
 import { CustomComponentComponent } from './custom-component.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
