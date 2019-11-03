@@ -7,7 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplayComponent implements OnInit {
 
-  content = '<h1>\n  I am content from the server, just normal HTML\n</h1>\n <button mat-raised-button color="primary">Primary</button>';
+  content = `<h1>
+    I am content from the server, just normal HTML
+    </h1>
+  
+        <button mat-icon-button aria-label="Hide">
+            <mat-icon>backspace</mat-icon>
+          </button>
+    `;
+
   constructor() { }
 
   ngOnInit() {

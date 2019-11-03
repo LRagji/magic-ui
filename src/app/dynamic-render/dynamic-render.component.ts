@@ -1,5 +1,6 @@
 import { Component, OnInit, ComponentFactoryResolver, ElementRef, Injector, ComponentFactory, ComponentRef, Input, Output, EventEmitter } from '@angular/core';
 import { MatButton } from '@angular/material/button';
+import { MatSidenav } from '@angular/material/sidenav';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -10,7 +11,7 @@ import { MatIcon } from '@angular/material/icon';
 export class DynamicRenderComponent implements OnInit {
 
   private hostElement: HTMLElement;
-  private supportedComponents = [MatButton];
+  private supportedComponents: Array<any> = [MatButton, MatSidenav, MatIcon];//This list has to match entryComponents of app.module
   private supportedComponentFactories: Map<string, ComponentFactory<any>> = new Map();
   private supportedComponentsInstances: ComponentRef<any>[] = [];
 
@@ -57,18 +58,12 @@ export class DynamicRenderComponent implements OnInit {
       const embeddedComponentElements = Array.from(this.hostElement.querySelectorAll(selector));
 
       for (const element of embeddedComponentElements) {
-        //     //convert NodeList into an array, since Angular dosen't like having a NodeList passed
-        //     //for projectableNodes
-             const projectableNodes = [Array.prototype.slice.call(element.childNodes)]
-
-             const embeddedComponent = factory.create(this.injector, projectableNodes, element)
-
-        //     //apply inputs into the dynamic component
-        //     //only static ones work here since this is the only time they're set
-            for (const attr of (element as any).attributes) {
-              embeddedComponent.instance[attr.nodeName] = attr.nodeValue;
-            }
-            this.supportedComponentsInstances.push(embeddedComponent);
+        const projectableNodes = [Array.from(element.childNodes)];
+        const embeddedComponent = factory.create(this.injector, projectableNodes, element)
+        for (const attr of (element as any).attributes) {
+          embeddedComponent.instance[attr.nodeName] = attr.nodeValue;
+        }
+        this.supportedComponentsInstances.push(embeddedComponent);
       }
     });
   }

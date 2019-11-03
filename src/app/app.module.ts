@@ -4,7 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule,MatButton} from '@angular/material/button';
+import { MatButtonModule, MatButton } from '@angular/material/button';
+import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
+import { MatIconModule, MatIcon } from '@angular/material/icon';
 
 
 //[entrycomponents]This is a spill when you have to include lazy loaded components here in the main module, but it seeems thata how it is with current version on angular..
@@ -17,10 +19,12 @@ import {MatButtonModule,MatButton} from '@angular/material/button';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [MatButton]
+  entryComponents: [MatButton, MatSidenav, MatIcon]
 })
 export class AppModule { }
