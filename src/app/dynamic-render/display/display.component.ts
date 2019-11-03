@@ -7,13 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplayComponent implements OnInit {
 
-  content = `<h1>
-    I am content from the server, just normal HTML
-    </h1>
-  
-        <button mat-icon-button aria-label="Hide">
-            <mat-icon>backspace</mat-icon>
-          </button>
+  content = `<button (click)="loadData()" mat-raised-button color="primary">Primary</button>
     `;
 
   constructor() { }
@@ -21,4 +15,8 @@ export class DisplayComponent implements OnInit {
   ngOnInit() {
   }
 
+  loadData() {
+    console.log("I am clicked");
+   this.content=`Its clicked`;
+  }
 }

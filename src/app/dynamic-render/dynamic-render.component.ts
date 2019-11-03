@@ -32,9 +32,9 @@ export class DynamicRenderComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    // destroy these components else there will be memory leaks
     this.supportedComponentsInstances.forEach(comp => comp.destroy());
     this.supportedComponentsInstances.length = 0;
+    this.hostElement.innerHTML = '';
   }
 
   @Output()
@@ -45,26 +45,32 @@ export class DynamicRenderComponent implements OnInit {
     this.ngOnDestroy();
     if (content) {
       this.build(content);
-      this.contentRendered.emit();
     }
   }
 
   private build(content) {
-    this.hostElement.innerHTML = content || '';
-
-    if (!content) { return; }
+    this.hostElement.innerHTML = content;
 
     this.supportedComponentFactories.forEach((factory, selector) => {
-      const embeddedComponentElements = Array.from(this.hostElement.querySelectorAll(selector));
+      const groupedSelectorMarkupElements = Array.from(this.hostElement.querySelectorAll(selector));
 
-      for (const element of embeddedComponentElements) {
-        const projectableNodes = [Array.from(element.childNodes)];
-        const embeddedComponent = factory.create(this.injector, projectableNodes, element)
-        for (const attr of (element as any).attributes) {
-          embeddedComponent.instance[attr.nodeName] = attr.nodeValue;
+      for (const markupElement of groupedSelectorMarkupElements) {
+        const projectableNodes = [Array.from(markupElement.childNodes)];
+        const embeddedComponent = factory.create(this.injector, projectableNodes, markupElement);
+        //console.table(embeddedComponent.instance);
+        for (const attr of (markupElement as any).attributes) {
+          if (attr.nodeName in embeddedComponent.instance) {
+            embeddedComponent.instance[attr.nodeName] = attr.nodeValue;
+          }
+          else{
+            console.log("Skipped:"+attr.nodeName+" Value:"+attr.nodeValue);
+          }
         }
+        // console.table(embeddedComponent.instance);
         this.supportedComponentsInstances.push(embeddedComponent);
       }
     });
+    this.contentRendered.emit();
   }
+
 }
