@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DynamicRenderComponent } from './dynamic-render.component';
+import { DisplayComponent } from './display/display.component';
 
-const routes: Routes = [{ path: '', component: DynamicRenderComponent }];
+const routes: Routes = [{ path: '', component: DisplayComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

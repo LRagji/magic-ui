@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ElementRef, Injector, ComponentFactory, ComponentRef, Input, Output, EventEmitter } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dynamic-render',
@@ -7,9 +9,67 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DynamicRenderComponent implements OnInit {
 
-  constructor() { }
+  private hostElement: HTMLElement;
+  private supportedComponents = [MatButton];
+  private supportedComponentFactories: Map<string, ComponentFactory<any>> = new Map();
+  private supportedComponentsInstances: ComponentRef<any>[] = [];
+
+  constructor(componentFactoryResolver: ComponentFactoryResolver, elementRef: ElementRef, private injector: Injector) {
+    this.hostElement = elementRef.nativeElement;
+    this.supportedComponents.forEach(component => {
+      const factory = componentFactoryResolver.resolveComponentFactory(component);
+      this.supportedComponentFactories.set(factory.selector, factory);
+    });
+    console.table(this.supportedComponentFactories)
+  }
 
   ngOnInit() {
   }
 
+  ngDoCheck() {
+    this.supportedComponentsInstances.forEach(comp => comp.changeDetectorRef.detectChanges());
+  }
+
+  ngOnDestroy() {
+    // destroy these components else there will be memory leaks
+    this.supportedComponentsInstances.forEach(comp => comp.destroy());
+    this.supportedComponentsInstances.length = 0;
+  }
+
+  @Output()
+  contentRendered = new EventEmitter();
+
+  @Input()
+  set content(content) {
+    this.ngOnDestroy();
+    if (content) {
+      this.build(content);
+      this.contentRendered.emit();
+    }
+  }
+
+  private build(content) {
+    this.hostElement.innerHTML = content || '';
+
+    if (!content) { return; }
+
+    this.supportedComponentFactories.forEach((factory, selector) => {
+      const embeddedComponentElements = Array.from(this.hostElement.querySelectorAll(selector));
+
+      for (const element of embeddedComponentElements) {
+        //     //convert NodeList into an array, since Angular dosen't like having a NodeList passed
+        //     //for projectableNodes
+             const projectableNodes = [Array.prototype.slice.call(element.childNodes)]
+
+             const embeddedComponent = factory.create(this.injector, projectableNodes, element)
+
+        //     //apply inputs into the dynamic component
+        //     //only static ones work here since this is the only time they're set
+            for (const attr of (element as any).attributes) {
+              embeddedComponent.instance[attr.nodeName] = attr.nodeValue;
+            }
+            this.supportedComponentsInstances.push(embeddedComponent);
+      }
+    });
+  }
 }
