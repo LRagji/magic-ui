@@ -1,18 +1,52 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav [mode]="over">
-        <button (click)="loadData()" mat-icon-button aria-label="Hide">
-            <mat-icon>backspace</mat-icon>
-          </button>
-          
+        <button (click)="sidenav.toggle()" mat-icon-button aria-label="Hide">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Basic Elements
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-action-list>
+                    <button mat-list-item (click)="addElement(e)" *ngFor="let e of basicElements"> {{e}} </button>
+                </mat-action-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Layout
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <form class="layout-container">
+                    <mat-form-field color="accent">
+                        <input #layoutcols matInput type="number" placeholder="Colum count" formControlName="cols"
+                            value="1" min="1" max="30">
+                    </mat-form-field>
+                    <mat-form-field color="accent">
+                        <input #layouttiles matInput type="number" placeholder="Tiles count" formControlName="tiles"
+                            value="1" min="1" max="100">
+                    </mat-form-field>
+                </form>
+            </mat-expansion-panel>
+        </mat-accordion>
     </mat-sidenav>
 
     <mat-sidenav-content>
         <button (click)="sidenav.toggle()" mat-icon-button aria-label="Component List">
-            <mat-icon>list</mat-icon>
+            <mat-icon>build</mat-icon>
         </button>
-        hello
-        <div fxFlex="50px" id="page-actions-container">
-            <!-- content will be placed dynamically via Cdk Portal -->
-        </div>
+        <mat-grid-list [cols]="layoutcols.value" rowHeight="2:1">
+            <mat-grid-tile
+            *ngFor="let tile of tiles"
+            [colspan]="tile.cols"
+            [rowspan]="tile.rows"
+            [style.background]="tile.color">
+          {{tile.text}}
+        </mat-grid-tile>
+        </mat-grid-list>
+
     </mat-sidenav-content>
 </mat-sidenav-container>

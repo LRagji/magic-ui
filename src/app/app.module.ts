@@ -7,6 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatButton } from '@angular/material/button';
 import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
 import { MatIconModule, MatIcon } from '@angular/material/icon';
+import { MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion'
+import { MatListModule, MatList } from '@angular/material/list';
+import { MatGridListModule, MatGridList } from '@angular/material/grid-list';
+import { MatFormFieldModule, MatFormField } from '@angular/material/form-field';
 
 
 //[entrycomponents]This is a spill when you have to include lazy loaded components here in the main module, but it seeems thata how it is with current version on angular..
@@ -21,10 +25,14 @@ import { MatIconModule, MatIcon } from '@angular/material/icon';
     BrowserAnimationsModule,
     MatButtonModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule,
+    MatListModule,
+    MatGridListModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [MatButton, MatSidenav, MatIcon]
+  entryComponents: [MatButton, MatSidenav, MatIcon, MatExpansionPanel, MatList, MatGridList, MatFormField]
 })
 export class AppModule { }

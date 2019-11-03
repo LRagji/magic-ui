@@ -6,6 +6,11 @@ import { CustomComponentComponent } from './custom-component.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatListModule } from '@angular/material/list';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material';
 
 
 @NgModule({
@@ -15,7 +20,12 @@ import { MatIconModule } from '@angular/material/icon';
     CustomComponentRoutingModule,
     MatSidenavModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule,
+    MatListModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class CustomComponentModule { }

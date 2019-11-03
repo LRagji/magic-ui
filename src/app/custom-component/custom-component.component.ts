@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentInjectorService } from '../component-injector.service';
-import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-custom-component',
@@ -9,15 +7,15 @@ import { MatButton } from '@angular/material/button';
 })
 export class CustomComponentComponent implements OnInit {
 
-  constructor(private componentInjection: ComponentInjectorService) { }
+  basicElements: Array<string> = ['Button', 'Slide', 'Slider']
+  tiles: Array<any> = [{}];
+
+  constructor() { }
 
   ngOnInit() {
   }
 
-  loadData() {
-    let container: HTMLElement = document.querySelector('#page-actions-container');
-    let componentInstance = this.componentInjection.attach(container, MatButton);
-    setTimeout(() => componentInstance.detach(), 2000);
+  addElement(elementName: String) {
+    console.log(elementName);
   }
-
 }
