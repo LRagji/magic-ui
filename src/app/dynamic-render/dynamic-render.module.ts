@@ -8,15 +8,17 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DisplayComponent } from './display/display.component';
+import { DynamicTileComponent } from './dynamic-tile/dynamic-tile.component';
 
 @NgModule({
-  declarations: [DynamicRenderComponent, DisplayComponent],
+  declarations: [DynamicRenderComponent, DisplayComponent, DynamicTileComponent],
   imports: [
     CommonModule,
     DynamicRenderRoutingModule,
     MatSidenavModule,
     MatButtonModule,
     MatIconModule
-  ]
+  ],
+  exports: [DynamicTileComponent]
 })
 export class DynamicRenderModule { }
