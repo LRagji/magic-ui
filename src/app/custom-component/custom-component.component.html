@@ -1,8 +1,6 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="over">
-        <button (click)="sidenav.toggle()" mat-icon-button aria-label="Hide">
-            <mat-icon>close</mat-icon>
-        </button>
+      <h3>Toolbox</h3>
         <mat-accordion>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -11,7 +9,8 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-action-list>
-                    <button mat-list-item (click)="addElement(e.instance)" *ngFor="let e of basicElements"> {{e.displayName}}
+                    <button mat-list-item (click)="addElement(e.instance)" *ngFor="let e of _basicElements">
+                        {{e.displayName}}
                     </button>
                 </mat-action-list>
             </mat-expansion-panel>
@@ -26,20 +25,18 @@
                         <input #layoutcols matInput type="number" placeholder="Colum count" formControlName="cols"
                             value="12" min="1" max="30">
                     </mat-form-field>
-                    <mat-form-field color="accent">
-                        <input #layouttiles matInput type="number" placeholder="Tiles count" formControlName="tiles"
-                            value="1" min="1" max="100">
-                    </mat-form-field>
                 </form>
+                <button (click)="addTile()" mat-raised-button>Add Tile</button>  
+                <button (click)="deletetTile()" mat-raised-button>Delete Tile</button>
             </mat-expansion-panel>
         </mat-accordion>
     </mat-sidenav>
 
     <mat-sidenav-content>
         <mat-grid-list [cols]="layoutcols.value" rowHeight="2:1">
-            <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows"
+            <mat-grid-tile *ngFor="let tile of _tiles" [colspan]="tile.cols" [rowspan]="tile.rows"
                 [style.background]="tile.color">
-                <app-dynamic-tile (click)="configureTile(tile.index)" [content]="tile.content" ></app-dynamic-tile>
+                <app-dynamic-tile (click)="configureTile(tile.index)" [content]="tile.content"></app-dynamic-tile>
             </mat-grid-tile>
         </mat-grid-list>
     </mat-sidenav-content>

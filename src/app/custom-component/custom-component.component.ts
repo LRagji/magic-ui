@@ -21,15 +21,18 @@ export class CustomComponentComponent implements OnInit {
 
   @ViewChild('sidenav', { static: true }) sidenav;
   private _selectedTile: Tile;
-  basicElements: Array<magicElement>;
-  
-  tiles: Array<Tile> = [{ index: 0, text: 'One', cols: 6, rows: 3, color: 'lightblue', content: '' },
-  { index: 1, text: 'Two', cols: 6, rows: 3, color: 'lightblue', content: '' }];
+  private _basicElements: Array<magicElement>;
+  private _tiles: Array<Tile>;
 
-  constructor(private _elementRepo: ElementsRepoService) { }
+  constructor(private _elementRepo: ElementsRepoService) {
+    this._tiles = [{ index: 0, text: 'One', cols: 6, rows: 3, color: 'lightblue', content: '' },
+    { index: 1, text: 'Two', cols: 6, rows: 3, color: 'lightblue', content: '' }];
+
+    this._selectedTile = this._tiles[0];
+  }
 
   async ngOnInit() {
-    this.basicElements = await this._elementRepo.getAllElements();
+    this._basicElements = await this._elementRepo.getAllElements();
   }
 
   async addElement(instance: any) {
@@ -40,6 +43,17 @@ export class CustomComponentComponent implements OnInit {
 
   configureTile(tileIndex: number) {
     this.sidenav.toggle();
-    this._selectedTile = this.tiles[tileIndex];
+    this._selectedTile = this._tiles[tileIndex];
+  }
+
+  addTile() {
+    this._tiles.push({ index: this._tiles.length, text: 'One', cols: 6, rows: 3, color: 'lightblue', content: '' })
+  }
+
+  deletetTile()
+  {
+    this.sidenav.toggle();
+    this._tiles.splice(this._selectedTile.index,1);
+    this._selectedTile = this._tiles[0];
   }
 }
