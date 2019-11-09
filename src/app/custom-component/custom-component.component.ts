@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ElementsRepoService, magicElement } from '../elements-repo.service';
 
 export interface Tile {
   color: string;
@@ -9,10 +10,7 @@ export interface Tile {
   content: string;
 }
 
-export interface magicElement {
-  name: string;
-  markup: string;
-}
+
 
 @Component({
   selector: 'app-custom-component',
@@ -23,37 +21,21 @@ export class CustomComponentComponent implements OnInit {
 
   @ViewChild('sidenav', { static: true }) sidenav;
   private _selectedTile: Tile;
-  basicElements: Array<magicElement> = [{ name: "button", markup: '<button mat-raised-button color="primary">Basic</button>' }, { name: "textbox", markup: "" }]
+  basicElements: Array<magicElement>;
+  
   tiles: Array<Tile> = [{ index: 0, text: 'One', cols: 6, rows: 3, color: 'lightblue', content: '' },
   { index: 1, text: 'Two', cols: 6, rows: 3, color: 'lightblue', content: '' }];
 
-  constructor() { }
+  constructor(private _elementRepo: ElementsRepoService) { }
 
-  ngOnInit() {
-    const someCode = `class mat_button {
-      constructor() {
-          this.package = {
-              execute: ['npx ng add @angular/material --interactive=false --theme=custom --gestures=true --animations=true'],
-              moduleImports: [{ moduleName: 'MatButtonModule', link: '@angular/material/button' }]
-          };
-          this.defaultProperties = {
-              text: "Hello World"
-          };
-          this.template = this.template.bind(this);
-      }
-
-      async template(props, layoutBuilder) {
-          return \`< button mat-raised - button color = "primary" > \${ props.text } </button>\`;
-  }
-};
-return new mat_button();`;
-    const mat_button = new Function(someCode)();
-    console.log(mat_button.template(mat_button.defaultProperties, () => ''));
+  async ngOnInit() {
+    this.basicElements = await this._elementRepo.getAllElements();
   }
 
-  addElement(elementMarkup: string) {
-    this.sidenav.toggle()
-    this._selectedTile.content = elementMarkup;
+  async addElement(instance: any) {
+    this.sidenav.toggle();
+    const markup = await instance.template(instance.defaultProperties, () => '');
+    this._selectedTile.content = markup;
   }
 
   configureTile(tileIndex: number) {

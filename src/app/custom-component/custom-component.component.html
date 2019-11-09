@@ -11,7 +11,7 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-action-list>
-                    <button mat-list-item (click)="addElement(e.markup)" *ngFor="let e of basicElements"> {{e.name}}
+                    <button mat-list-item (click)="addElement(e.instance)" *ngFor="let e of basicElements"> {{e.displayName}}
                     </button>
                 </mat-action-list>
             </mat-expansion-panel>

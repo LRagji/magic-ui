@@ -4,6 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NetworkMock } from './network-mock';
+
 import { MatButtonModule, MatButton } from '@angular/material/button';
 import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
 import { MatIconModule, MatIcon } from '@angular/material/icon';
@@ -29,9 +33,16 @@ import { MatFormFieldModule, MatFormField } from '@angular/material/form-field';
     MatExpansionModule,
     MatListModule,
     MatGridListModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NetworkMock,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [MatButton, MatSidenav, MatIcon, MatExpansionPanel, MatList, MatGridList, MatFormField]
 })
