@@ -16,6 +16,9 @@ import { MatInputModule } from '@angular/material';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSliderModule } from '@angular/material/slider'
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -34,7 +37,9 @@ import { MatDividerModule } from '@angular/material/divider';
     MatBadgeModule,
     MatToolbarModule,
     MatDividerModule,
-    DynamicRenderModule
+    DynamicRenderModule,
+    MatSliderModule,
+    FormsModule
   ]
 })
 export class CustomComponentModule { }
