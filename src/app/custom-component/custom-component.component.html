@@ -75,7 +75,7 @@
         <mat-grid-list [cols]="_layout.columns.value" [gutterSize]="_layout.gutter.value" rowHeight="2:1">
             <mat-grid-tile *ngFor="let tile of _tiles" [colspan]="tile.cols" [rowspan]="tile.rows"
                 [style.background]="tile.color">
-                <app-dynamic-tile (click)="configureTile(tile.index)" [content]="tile.content"></app-dynamic-tile>
+                <app-dynamic-tile (configureTile)="configureTile(tile.index)" [content]="tile.content"></app-dynamic-tile>
             </mat-grid-tile>
         </mat-grid-list>
     </mat-sidenav-content>
