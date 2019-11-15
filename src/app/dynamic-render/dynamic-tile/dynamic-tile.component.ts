@@ -21,7 +21,6 @@ export class DynamicTileComponent implements OnInit {
   }
 
   _raiseConfigureTile() {
-    console.log("Hello");
     this.configureTile.emit();
   }
 
